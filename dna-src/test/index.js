@@ -29,6 +29,8 @@ const testProduct = {
   price: 1000			    
 }
 
+
+
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
   console.log(register_result)
@@ -42,6 +44,20 @@ scenario.runTape('Can create a product', async (t, {alice}) => {
   const create_product = await alice.callSync('event', 'create_product', testProduct)
   console.log(create_product)
   t.deepEqual(create_product.Ok.length, 46)
+})
+
+scenario.runTape('Can create inventory', async (t, {alice}) => {
+  const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
+  console.log(register_result)
+  t.true(register_result.Ok.includes('alice'))
+
+  const create_product = await alice.callSync('event', 'create_product', testProduct)
+  console.log(create_product)
+  t.deepEqual(create_product.Ok.length, 46)
+
+  const create_inventory = await alice.callSync('event', 'create_inventory', {product_address: create_product, org_address: register_result, stocked_units: 100})
+  console.log(create_inventory)
+  t.deepEqual(create_inventory.Ok.length, 46)
 })
 
 scenario.runTape('Can create a public event with no other members and retrieve it', async (t, {alice}) => {
