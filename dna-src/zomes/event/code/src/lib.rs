@@ -87,10 +87,18 @@ define_zome! {
 			outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<message::Message>>|,
 			handler: event::handlers::handle_get_messages
 		}
+		//
+		//  PRODUCTS
+		//
 		create_product: {
 			inputs: |name: String, description: String, image_url: String, price: u32|,			    
 			outputs: |result: ZomeApiResult<Address>|,
 			handler: product::handlers::handle_create_product
+		}
+		get_all_products: {
+			inputs: | |,
+			outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<product::Product>>|,
+			handler: product::handlers::handle_get_all_products
 		}
 	]
 
@@ -105,7 +113,8 @@ define_zome! {
 	        	get_my_member_profile,
 	        	post_message,
 	        	get_messages,
-				create_product
+				create_product,
+				get_all_products
 	        ]
 	}
  }
