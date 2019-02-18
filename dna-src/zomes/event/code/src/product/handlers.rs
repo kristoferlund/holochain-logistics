@@ -46,7 +46,5 @@ pub fn handle_get_all_products() -> ZomeApiResult<utils::GetLinksLoadResult<Prod
     );
     let anchor_address = hdk::entry_address(&anchor_entry)?;
 
-    let all_products = utils::get_links_and_load_type(&anchor_address, "product_link");
-
-    Ok(all_products)
+    utils::get_links_and_load_type(&anchor_address, "product_link")
 }
