@@ -23,6 +23,7 @@ mod message;
 mod event;
 mod member;
 mod utils;
+mod product;
 
 define_zome! {
 
@@ -30,7 +31,8 @@ define_zome! {
 		message::message_definition(),
     	event::public_event_definition(),
         member::profile_definition(),
-        anchor::anchor_definition()
+        anchor::anchor_definition(),
+		product::product_definition()
 	]
 
     genesis: || {
@@ -85,6 +87,11 @@ define_zome! {
 			outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<message::Message>>|,
 			handler: event::handlers::handle_get_messages
 		}
+		create_product: {
+			inputs: |name: String, description: String, image_url: String, price: u32|,			    
+			outputs: |result: ZomeApiResult<Address>|,
+			handler: product::handlers::handle_create_product
+		}
 	]
 
 	 traits: {
@@ -97,7 +104,8 @@ define_zome! {
 	        	get_member_profile,
 	        	get_my_member_profile,
 	        	post_message,
-	        	get_messages
+	        	get_messages,
+				create_product
 	        ]
 	}
  }

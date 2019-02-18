@@ -8,7 +8,6 @@ const scenario = new Scenario([instanceAlice])
 
 /*----------  Events  ----------*/
 
-
 const testNewChannelParams = {
   name: "test new event",
   description: "for testing...",
@@ -23,6 +22,12 @@ const testMessage = {
   meta: "{}",
 }
 
+const testProduct = {
+  name: "Prodname", 
+  description: "Description", 
+  image_url: "url", 
+  price: 1000			    
+}
 
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   const register_result = await alice.callSync('event', 'register', {name: 'alice', avatar_url: ''})
@@ -31,6 +36,16 @@ scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
 
   const get_profile_result = await alice.callSync('event', 'get_member_profile', {agent_address: register_result.Ok})
   console.log(get_profile_result)
+})
+
+scenario.runTape('Can create a product', async (t, {alice}) => {
+  const register_result = await alice.callSync('event', 'register', {name: 'alice', avatar_url: ''})
+  console.log(register_result)
+  t.true(register_result.Ok.includes('alice'))
+
+  const create_product = await alice.callSync('event', 'create_product', testProduct)
+  console.log(create_product)
+  t.deepEqual(create_product.Ok.length, 46)
 })
 
 scenario.runTape('Can create a public event with no other members and retrieve it', async (t, {alice}) => {
