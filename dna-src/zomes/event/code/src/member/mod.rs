@@ -20,14 +20,16 @@ pub struct Member {
 pub struct Profile {
     pub name: String,
     pub avatar_url: String,
+    pub description: String,
     pub address: Address,
+ 
 }
 
 
 pub fn profile_definition() -> ValidatingEntryType {
     entry!(
-        name: "event_profile",
-        description: "The data that event has about a particular user",
+        name: "org_profile",
+        description: "The data that logistics has about a particular user",
         sharing: Sharing::Public,
         native_type: Profile,
 

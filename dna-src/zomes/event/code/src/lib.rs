@@ -43,7 +43,7 @@ define_zome! {
 
 	functions: [
 		register: {
-			inputs: | name: String, avatar_url: String |,
+			inputs: | name: String, avatar_url: String, description: String |,
 			outputs: |result: ZomeApiResult<Address>|,
 			handler: member::handlers::handle_register
 		}

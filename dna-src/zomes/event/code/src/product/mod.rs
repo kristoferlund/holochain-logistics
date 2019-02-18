@@ -13,7 +13,7 @@ pub struct Product {
     pub name: String,
     pub description: String,
     pub image_url: String,
-    pub price: u32,
+    pub price: u32
 }
 
 pub fn product_definition() -> ValidatingEntryType {

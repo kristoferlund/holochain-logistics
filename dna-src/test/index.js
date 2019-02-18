@@ -1,6 +1,6 @@
 const { Config, Container, Scenario } = require('@holochain/holochain-nodejs')
 Scenario.setTape(require('tape'))
-const dnaPath = "../../dna/logistics.hcpkg"
+const dnaPath = "dist/bundle.json"
 const dna = Config.dna(dnaPath, 'happs')
 const agentAlice = Config.agent("alice")
 const instanceAlice = Config.instance(agentAlice, dna)
@@ -30,7 +30,7 @@ const testProduct = {
 }
 
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
-  const register_result = await alice.callSync('event', 'register', {name: 'alice', avatar_url: ''})
+  const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
   console.log(register_result)
   t.true(register_result.Ok.includes('alice'))
 
@@ -39,10 +39,6 @@ scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
 })
 
 scenario.runTape('Can create a product', async (t, {alice}) => {
-  const register_result = await alice.callSync('event', 'register', {name: 'alice', avatar_url: ''})
-  console.log(register_result)
-  t.true(register_result.Ok.includes('alice'))
-
   const create_product = await alice.callSync('event', 'create_product', testProduct)
   console.log(create_product)
   t.deepEqual(create_product.Ok.length, 46)
@@ -50,7 +46,7 @@ scenario.runTape('Can create a product', async (t, {alice}) => {
 
 scenario.runTape('Can create a public event with no other members and retrieve it', async (t, {alice}) => {
  
-  const register_result = await alice.callSync('event', 'register', {name: 'alice', avatar_url: ''})
+  const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
   console.log(register_result)
   t.true(register_result.Ok.includes('alice'))
 
@@ -71,7 +67,7 @@ scenario.runTape('Can create a public event with no other members and retrieve i
 
 scenario.runTape('Can post a message to the event and retrieve', async (t, {alice}) => {
 
-  const register_result = await alice.callSync('event', 'register', {name: 'alice', avatar_url: ''})
+  const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
   console.log(register_result)
   t.true(register_result.Ok.includes('alice'))
 
@@ -95,7 +91,7 @@ scenario.runTape('Can post a message to the event and retrieve', async (t, {alic
 
 scenario.runTape('Can create a public event with some members', async (t, {alice}) => {
 
-  const register_result = await alice.callSync('event', 'register', {name: 'alice', avatar_url: ''})
+  const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
   console.log(register_result)
   t.true(register_result.Ok.includes('alice'))
 
