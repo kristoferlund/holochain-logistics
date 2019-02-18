@@ -1,0 +1,12 @@
+{
+  "name": "basic-event",
+  "version": "1.0.0",
+  "description": "A event demo for holochain",
+  "main": "index.js",
+  "scripts": {
+    "hc:build": "mkdir -p dna && cd dna-src && hc package --strip-meta -o ../dna/logistics.hcpkg",
+    "hc:start": "holochain -c ./conductor-config.toml"
+  },
+  "author": "",
+  "license": "GPL-3"
+}
