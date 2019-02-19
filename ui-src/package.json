@@ -2,13 +2,20 @@
   "name": "holochain-basic-event",
   "version": "0.0.1",
   "dependencies": {
+    "@holochain/hc-redux-middleware": "^1.0.9",
     "@holochain/hc-web-client": "^0.1.0",
     "object-path-immutable": "^1.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-linkify": "^0.2.2",
+    "react-redux": "5.0.5",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "next",
+    "redux": "3.6.0",
     "vuid": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-react": "^7.11.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -50,16 +50,16 @@ id = "events-goer-4000"
 
 # -----------  UI  -----------
 
-[[ui_bundles]]
-id = "main"
-root_dir = "./ui"
-hash = "Qm000"
+# [[ui_bundles]]
+# id = "main"
+# root_dir = "./ui"
+# hash = "Qm000"
 
-[[ui_interfaces]]
-id = "ui-interface"
-bundle = "main"
-port = 3000
-dna_interface = "websocket_interface"
+# [[ui_interfaces]]
+# id = "ui-interface"
+# bundle = "main"
+# port = 3000
+# dna_interface = "websocket_interface"
 
 # -----------  Networking  -----------
 
