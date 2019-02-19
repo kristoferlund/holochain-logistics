@@ -13,7 +13,7 @@ pub mod handlers;
 pub struct Inventory {
     pub product_address: Address,
     pub org_address: Address,
-    pub stocked_units: u32,
+    pub stocked_units: u32
 }
 
 pub fn inventory_definition() -> ValidatingEntryType {

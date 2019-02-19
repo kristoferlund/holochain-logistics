@@ -75,7 +75,7 @@ scenario.runTape('Can create inventory', async (t, {alice}) => {
   console.log(create_product)
   t.deepEqual(create_product.Ok.length, 46)
 
-  const create_inventory = await alice.callSync('event', 'create_inventory', {product_address: create_product, org_address: register_result, stocked_units: 100})
+  const create_inventory = await alice.callSync('event', 'create_inventory', {product_address: create_product.Ok, org_address: register_result.Ok, stocked_units: 100})
   console.log(create_inventory)
   t.deepEqual(create_inventory.Ok.length, 46)
 })

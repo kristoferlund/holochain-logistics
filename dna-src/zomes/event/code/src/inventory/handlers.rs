@@ -12,8 +12,8 @@ use crate::inventory::{
 };
 
 pub fn handle_create_inventory(
-    product_address: HashString,
-    org_address: HashString,
+    product_address: Address,
+    org_address: Address,
     stocked_units: u32
 ) -> ZomeApiResult<Address> {
 
@@ -32,7 +32,7 @@ pub fn handle_create_inventory(
     );
 
     let anchor_address = hdk::commit_entry(&anchor_entry)?;
-    hdk::link_entries(&anchor_address, &inventory_address, "all_inventory_list")?;
+    hdk::link_entries(&anchor_address, &inventory_address, "inventory_link")?;
 
     Ok(inventory_address)
 }
