@@ -24,6 +24,7 @@ mod event;
 mod member;
 mod utils;
 mod product;
+mod inventory;
 
 define_zome! {
 
@@ -32,7 +33,8 @@ define_zome! {
     	event::public_event_definition(),
         member::profile_definition(),
         anchor::anchor_definition(),
-		product::product_definition()
+		product::product_definition(),
+		inventory::inventory_definition()
 	]
 
     genesis: || {
@@ -95,11 +97,21 @@ define_zome! {
 			outputs: |result: ZomeApiResult<Address>|,
 			handler: product::handlers::handle_create_product
 		}
-		get_all_products: {
+    get_all_products: {
 			inputs: | |,
 			outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<product::Product>>|,
 			handler: product::handlers::handle_get_all_products
-		}
+
+		//
+		//  INVENTORY
+		//
+    create_inventory: {
+			inputs: |product_address: HashString, org_address: HashString, stocked_units: u32|,			    
+			outputs: |result: ZomeApiResult<Address>|,
+			handler: inventory::handlers::handle_create_inventory
+
+    
+    }
 	]
 
 	 traits: {
@@ -113,8 +125,9 @@ define_zome! {
 	        	get_my_member_profile,
 	        	post_message,
 	        	get_messages,
-				create_product,
-				get_all_products
+    				create_product,
+    				get_all_products
+     				create_inventory
 	        ]
 	}
  }
