@@ -16,7 +16,7 @@ use hdk::{
 use crate::member::Profile;
 use crate::utils;
 
-pub fn handle_register(name: String, avatar_url: String) -> ZomeApiResult<Address> {
+pub fn handle_register(name: String, avatar_url: String, description: String) -> ZomeApiResult<Address> {
     let anchor_entry = Entry::App(
         "anchor".into(),
         RawString::from("member_directory").into(),
@@ -26,10 +26,11 @@ pub fn handle_register(name: String, avatar_url: String) -> ZomeApiResult<Addres
     hdk::link_entries(&anchor_address, &AGENT_ADDRESS, "member_tag")?;
 
     let profile_entry = Entry::App(
-        "event_profile".into(),
+        "org_profile".into(),
         Profile {
             name,
             avatar_url,
+            description,
             address: AGENT_ADDRESS.to_string().into()
         }.into()
     );

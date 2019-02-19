@@ -49,7 +49,7 @@ pub fn anchor_definition() -> ValidatingEntryType {
             ),
             to!(
                 "product",
-                tag: "product_link",
+                tag: "global_product_list",
 
                 validation_package: || {
                     hdk::ValidationPackageDefinition::Entry
