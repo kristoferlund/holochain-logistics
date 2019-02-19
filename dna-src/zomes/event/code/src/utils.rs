@@ -16,8 +16,6 @@ pub struct GetLinksLoadElement<T> {
 
 pub type GetLinksLoadResult<T> = Vec<GetLinksLoadElement<T>>;
 
-
-
 pub fn get_links_and_load<S: Into<String>>(
     base: &HashString,
     tag: S

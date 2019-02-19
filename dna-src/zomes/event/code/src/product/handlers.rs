@@ -10,6 +10,8 @@ use crate::product::{
     Product,
 };
 
+use crate::utils;
+
 pub fn handle_create_product(
     name: String,
     description: String, 
@@ -32,7 +34,17 @@ pub fn handle_create_product(
     );
 
     let anchor_address = hdk::commit_entry(&anchor_entry)?;
-    hdk::link_entries(&anchor_address, &product_address, "global_product_list")?;
+    hdk::link_entries(&anchor_address, &product_address, "product_link")?;
 
     Ok(product_address)
+}
+
+pub fn handle_get_all_products() -> ZomeApiResult<utils::GetLinksLoadResult<Product>> {
+    let anchor_entry = Entry::App(
+        "anchor".into(),
+        RawString::from("global_product_list").into(),
+    );
+    let anchor_address = hdk::entry_address(&anchor_entry)?;
+
+    utils::get_links_and_load_type(&anchor_address, "product_link")
 }

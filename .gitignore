@@ -3,6 +3,7 @@
 # dependencies
 
 ui-src/build
+dna
 
 # testing
 /coverage
@@ -13,7 +14,6 @@ ui-src/coverage
 foo
 tmp-storage/cas
 tmp-storage/eav
-
 
 # misc
 .DS_Store
