@@ -36,6 +36,7 @@ const testProduct2 = {
   price: 1000			    
 }
 
+
 scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
   console.log(register_result)
@@ -66,20 +67,92 @@ scenario.runTape('Can create some products and retrieve them', async (t, {alice}
 
 })
 
-scenario.runTape('Can create inventory', async (t, {alice}) => {
+scenario.runTape('Can create inventory items and retrieve them', async (t, {alice}) => {
   const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
-  console.log(register_result)
+  console.log(register_result.Ok)
   t.true(register_result.Ok.includes('alice'))
 
   const create_product = await alice.callSync('event', 'create_product', testProduct)
   console.log(create_product)
   t.deepEqual(create_product.Ok.length, 46)
 
+  const create_product2 = await alice.callSync('event', 'create_product', testProduct2)
+  console.log(create_product2)
+  t.deepEqual(create_product2.Ok.length, 46)
+
   const create_inventory = await alice.callSync('event', 'create_inventory', {product_address: create_product.Ok, org_address: register_result.Ok, stocked_units: 100})
   console.log(create_inventory)
   t.deepEqual(create_inventory.Ok.length, 46)
+
+  const create_inventory2 = await alice.callSync('event', 'create_inventory', {product_address: create_product2.Ok, org_address: register_result.Ok, stocked_units: 30})
+  console.log(create_inventory2)
+  t.deepEqual(create_inventory2.Ok.length, 46)
+
+  const get_result = await alice.callSync('event', 'get_all_inventory', {})
+  console.log('all inventory: ', get_result)
+  t.deepEqual(get_result.Ok.length, 2)
 })
 
+// Further dev.
+// need to create two different orgs, how? not using Agent_address?
+// need to start updating inventory quantity of same product + supply_org combination
+//
+scenario.runTape('Can create create an order', async (t, {alice}) => {
+  const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
+  console.log(register_result.Ok)
+  t.true(register_result.Ok.includes('alice'))
+
+  const register_result2 = await alice.callSync('event', 'register', {name: 'Food hub 2', avatar_url: '', description: "we are a little further away"})
+  console.log(register_result2.Ok)
+  t.true(register_result2.Ok.includes('alice'))
+
+  const create_product = await alice.callSync('event', 'create_product', testProduct)
+  console.log(create_product)
+  t.deepEqual(create_product.Ok.length, 46)
+
+  const create_product2 = await alice.callSync('event', 'create_product', testProduct2)
+  console.log(create_product2)
+  t.deepEqual(create_product2.Ok.length, 46)
+
+  const create_inventory = await alice.callSync('event', 'create_inventory', {product_address: create_product.Ok, org_address: register_result.Ok, stocked_units: 100})
+  console.log(create_inventory)
+  t.deepEqual(create_inventory.Ok.length, 46)
+
+  const create_inventory2 = await alice.callSync('event', 'create_inventory', {product_address: create_product2.Ok, org_address: register_result.Ok, stocked_units: 30})
+  console.log(create_inventory2)
+  t.deepEqual(create_inventory2.Ok.length, 46)
+
+  const create_order = await alice.callSync('event', 'create_order', {
+    supply_organisation: register_result.Ok,
+    recieving_organisation: register_result2.Ok,
+    product_address: create_product.Ok,
+    order_quantity: 23,
+    transport: "Weekly truck",
+    comment: "looks like good beans!",
+    is_sent: false,
+    is_recieved: false})
+  console.log(create_order)
+  t.deepEqual(create_order.Ok.length, 46)
+
+  const create_order2 = await alice.callSync('event', 'create_order', {
+    supply_organisation: register_result.Ok,
+    recieving_organisation: register_result2.Ok,
+    product_address: create_product2.Ok,
+    order_quantity: 5,
+    transport: "Special delivery",
+    comment: "package carefully!",
+    is_sent: false,
+    is_recieved: false})
+  console.log(create_order2)
+  t.deepEqual(create_order2.Ok.length, 46)
+
+  const get_result = await alice.callSync('event', 'get_all_orders', {})
+  console.log('all inventory: ', get_result)
+  t.deepEqual(get_result.Ok.length, 2)
+})
+
+
+/*
 scenario.runTape('Can create a public event with no other members and retrieve it', async (t, {alice}) => {
  
   const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
@@ -100,7 +173,7 @@ scenario.runTape('Can create a public event with no other members and retrieve i
   t.deepEqual(get_result.Ok.length, 1)
 
 })
-
+*/
 scenario.runTape('Can post a message to the event and retrieve', async (t, {alice}) => {
 
   const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
