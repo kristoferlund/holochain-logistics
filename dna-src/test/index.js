@@ -60,9 +60,9 @@ scenario.runTape('Can create some products and retrieve them', async (t, {alice}
   console.log(create_product2)
   t.deepEqual(create_product2.Ok.length, 46)
 
-  // const get_result = await alice.callSync('event', 'get_all_products', {})
-  // console.log('all products: ', get_result)
-  // t.deepEqual(get_result.Ok.length, 2)
+  const get_result = await alice.callSync('event', 'get_all_products', {})
+  console.log('all products: ', get_result)
+  t.deepEqual(get_result.Ok.length, 2)
 
 })
 
