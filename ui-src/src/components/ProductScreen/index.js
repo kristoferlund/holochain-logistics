@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from '@holochain/hc-web-client'
+import { CreateProductForm } from '../CreateProductForm'
 
 // --------------------------------------
 // Application
@@ -21,15 +22,28 @@ class ProductScreen extends React.Component {
           const products = result.Ok.map(({ address, entry }) => {
             return {
               id: address,
-              private: !entry.public,
               name: entry.name,
               description: entry.description,
-              users: []
+              image_url: entry.image_url,
+              price: entry.price
             }
           })
           this.setState({
             products
           })
+        })
+      },
+
+      createProduct: options => {
+        const product = {
+          name: options.name,
+          description: options.description,
+          image_url: options.image_url,
+          price: parseInt(options.price)
+        }
+        this.makeHolochainCall('events-goer-4000/event/create_product', product, (result) => {
+          console.log('created product', result)
+          this.actions.getAllProducts()
         })
       }
 
@@ -58,11 +72,13 @@ class ProductScreen extends React.Component {
   }
 
   render () {
+    const { createProduct } = this.actions
     return (
       <main>
         <section>
           <h1>Products</h1>
           {this.uiProductList()}
+          <CreateProductForm submit={createProduct} />
         </section>
       </main>
     )
