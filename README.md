@@ -1,10 +1,12 @@
 # Logistics
 
+**WORK IN PROGRESS**
+
 ### Test
 
 ```
 cd dna-src/test
-node index
+hc test
 ```
 
 ### Holochain DNA
@@ -19,8 +21,8 @@ npm run hc:build
 
 ```
 cd ui-src
-npm install
-npm run build
+yarn
+npm start
 ```
 
 ## Built With
