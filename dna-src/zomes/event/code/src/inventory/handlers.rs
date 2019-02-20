@@ -1,7 +1,6 @@
 
 use hdk::error::ZomeApiResult;
 use hdk::holochain_core_types::{
-    hash::HashString,
     entry::Entry,
     cas::content::Address,
     json::RawString,

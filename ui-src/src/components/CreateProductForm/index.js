@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const CreateProductForm = ({ submit }) => {
+export const CreateProductForm = ({ submit, product }) => {
   return (
     <form
       onSubmit={e => {
@@ -29,19 +29,18 @@ export const CreateProductForm = ({ submit }) => {
     >
 
       <div className='measure'>
-        <h1 className='f3 lh-copy'>Create Product</h1>
 
-        <label htmlFor='name' className='f6 b db mb2'>Name</label>
-        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' />
+        <label htmlFor='name' className='f6 b db mb2' >Name</label>
+        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' defaultValue={product && product.name ? product.name : ''} id='name' />
 
-        <label htmlFor='name' className='f6 b db mb2'>Description</label>
-        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' />
+        <label htmlFor='description' className='f6 b db mb2'>Description</label>
+        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' defaultValue={product && product.description ? product.description : ''} id='description' />
 
-        <label htmlFor='name' className='f6 b db mb2'>Image URL</label>
-        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' />
+        <label htmlFor='image_url' className='f6 b db mb2'>Image URL</label>
+        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' defaultValue={product && product.image_url ? product.image_url : ''} id='image_url' />
 
-        <label htmlFor='name' className='f6 b db mb2'>Price</label>
-        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' />
+        <label htmlFor='price' className='f6 b db mb2'>Price</label>
+        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' defaultValue={product && product.price ? product.price : ''} id='price' />
 
         <button type='submit' className='button-reset f6 link dim br3 ph3 pv2 mb2 dib white bg-dark-green'>Save</button>
       </div>

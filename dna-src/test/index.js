@@ -45,12 +45,10 @@ scenario.runTape('Can register a profile and retrieve', async (t, {alice}) => {
   console.log(get_profile_result)
 })
 
-
 scenario.runTape('Can create some products and retrieve them', async (t, {alice}) => {
   const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
   console.log(register_result)
   t.true(register_result.Ok.includes('alice'))
-
 
   const create_product = await alice.callSync('event', 'create_product', testProduct)
   console.log(create_product)
@@ -63,6 +61,29 @@ scenario.runTape('Can create some products and retrieve them', async (t, {alice}
   const get_result = await alice.callSync('event', 'get_all_products', {})
   console.log('all products: ', get_result)
   t.deepEqual(get_result.Ok.length, 2)
+
+})
+
+scenario.runTape('Can create product, update it and retreive history', async (t, {alice}) => {
+  
+  const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
+  console.log(register_result)
+  t.true(register_result.Ok.includes('alice'))
+
+  const create_product = await alice.callSync('event', 'create_product', testProduct)
+  console.log(create_product)
+  t.deepEqual(create_product.Ok.length, 46)
+
+  const testProductUpdate = Object.assign(testProduct, {name: 'Updated product', product_address: create_product.Ok})
+
+  console.log(JSON.stringify(testProductUpdate, null, 2))
+
+  const updated_product = await alice.call('event', 'update_product', testProductUpdate)
+  console.log(updated_product)
+  t.deepEqual(updated_product.Ok.length, 46)
+
+  const get_entry_history = await alice.callSync('event', 'get_entry_history', {entry_address: create_product.Ok})
+  console.log(JSON.stringify(get_entry_history, null, 2))
 
 })
 

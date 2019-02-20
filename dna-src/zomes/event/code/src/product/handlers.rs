@@ -6,6 +6,7 @@ use hdk::holochain_core_types::{
     json::RawString,
 };
 
+
 use crate::product::{
     Product,
 };
@@ -39,6 +40,28 @@ pub fn handle_create_product(
     Ok(product_address)
 }
 
+pub fn handle_update_product(
+    product_address: Address,
+    name: String,
+    description: String, 
+    image_url: String,
+    price: u32
+) -> ZomeApiResult<Address> {
+
+    let product = Product{name, description, image_url, price};
+
+    let entry = Entry::App(
+        "product".into(),
+        product.into()
+    );
+
+    let updated_address = hdk::update_entry(entry, &product_address)?;
+
+    Ok(updated_address)
+}
+
+
+
 pub fn handle_get_all_products() -> ZomeApiResult<utils::GetLinksLoadResult<Product>> {
     let anchor_entry = Entry::App(
         "anchor".into(),
@@ -48,3 +71,7 @@ pub fn handle_get_all_products() -> ZomeApiResult<utils::GetLinksLoadResult<Prod
 
     utils::get_links_and_load_type(&anchor_address, "product_link")
 }
+
+
+
+
