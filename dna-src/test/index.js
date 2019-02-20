@@ -92,6 +92,33 @@ scenario.runTape('Can create inventory items and retrieve them', async (t, {alic
   console.log('all inventory: ', get_result)
   t.deepEqual(get_result.Ok.length, 2)
 })
+/*
+scenario.runTape('Can update inventory item', async (t, {alice}) => {
+  const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
+  console.log(register_result.Ok)
+  t.true(register_result.Ok.includes('alice'))
+
+  const create_product = await alice.callSync('event', 'create_product', testProduct)
+  console.log(create_product)
+  t.deepEqual(create_product.Ok.length, 46)
+
+  const create_inventory = await alice.callSync('event', 'create_inventory', {product_address: create_product.Ok, org_address: register_result.Ok, stocked_units: 100})
+  console.log(create_inventory)
+  t.deepEqual(create_inventory.Ok.length, 46)
+
+  const update_inventory = await alice.callSync('event', 'update_inventory_qty', {inventory_address: create_inventory.Ok, new_stock_qty: 10000})
+  console.log(update_inventory)
+  t.deepEqual(update_inventory.Ok.length, 46)
+
+  const get_result = await alice.callSync('event', 'get_all_inventory', {})
+  console.log('all inventory: ', get_result)
+  t.deepEqual(get_result.Ok.length, 1)
+})
+
+*/
+
+
+
 
 // Further dev.
 // need to create two different orgs, how? not using Agent_address?
