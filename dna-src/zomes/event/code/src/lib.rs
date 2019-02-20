@@ -30,6 +30,7 @@ mod member;
 mod utils;
 mod product;
 mod inventory;
+mod order;
 
 define_zome! {
 
@@ -39,7 +40,8 @@ define_zome! {
         member::profile_definition(),
         anchor::anchor_definition(),
 		product::product_definition(),
-		inventory::inventory_definition()
+		inventory::inventory_definition(),
+		order::order_definition()
 	]
 
     genesis: || {
@@ -120,7 +122,27 @@ define_zome! {
 				outputs: |result: ZomeApiResult<Address>|,
 				handler: inventory::handlers::handle_create_inventory
         }
+		get_all_inventory: {
+				inputs: | |,
+				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<inventory::Inventory>>|,
+				handler: inventory::handlers::handle_get_all_inventory
+		}
+
+    //
+		// ORDERS
 		//
+		create_order: {
+				inputs: |supply_organisation: Address, recieving_organisation: Address, product_address: Address, order_quantity: u32, transport: String, comment: String, is_sent: bool, is_recieved: bool|,
+				outputs: |result: ZomeApiResult<Address>|,
+				handler: order::handlers::handle_create_order
+        }
+		get_all_orders: {
+				inputs: | |,
+				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<order::Order>>|,
+				handler: order::handlers::handle_get_all_orders
+		}
+
+    //
 		//  UTIL
 		//
 		get_entry_history: {
@@ -133,7 +155,7 @@ define_zome! {
 				outputs: |result: ZomeApiResult<Entry>|,
 				handler: utils::handle_get_entry
         }
-	]
+]
 
 	 traits: {
 	        hc_public [
@@ -150,8 +172,11 @@ define_zome! {
     			update_product,
     			get_all_products,
      			create_inventory,
-				get_entry_history,
-				get_entry
+  				get_all_inventory,
+  				create_order,
+	   			get_all_orders,
+  				get_entry_history,
+	  			get_entry,
 	        ]
 	}
  }
