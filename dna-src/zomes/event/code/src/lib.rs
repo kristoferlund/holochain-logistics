@@ -127,6 +127,11 @@ define_zome! {
 				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<inventory::Inventory>>|,
 				handler: inventory::handlers::handle_get_all_inventory
 		}
+		update_inventory_qty: {
+				inputs: | inventory_address: HashString, new_stock_qty: u32|,
+				outputs: |result: ZomeApiResult<Address>|,
+				handler: inventory::handlers::handle_update_inventory_qty
+		}
 
     //
 		// ORDERS
@@ -172,6 +177,7 @@ define_zome! {
     			update_product,
     			get_all_products,
      			create_inventory,
+  				update_inventory_qty,
   				get_all_inventory,
   				create_order,
 	   			get_all_orders,
