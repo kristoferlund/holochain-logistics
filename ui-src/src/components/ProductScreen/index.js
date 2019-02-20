@@ -1,49 +1,45 @@
 import React from 'react'
 import { connect } from '@holochain/hc-web-client'
 import { CreateProductForm } from '../CreateProductForm'
+import queryString from 'query-string'
 
 // --------------------------------------
 // Application
 // --------------------------------------
 
-class ProductScreen extends React.Component {
+class ProductListScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       holochainConnection: connect('ws://localhost:3400'),
-      products: {}
+      product: undefined,
+      productHistory: undefined,
+      address: undefined
     }
 
     this.actions = {
-
-      getAllProducts: () => {
-        this.makeHolochainCall('events-goer-4000/event/get_all_products', {}, (result) => {
-          console.log('retrieved all products', result)
-          const products = result.Ok.map(({ address, entry }) => {
-            return {
-              id: address,
-              name: entry.name,
-              description: entry.description,
-              image_url: entry.image_url,
-              price: entry.price
-            }
-          })
-          this.setState({
-            products
-          })
+      getProduct: (address) => {
+        this.makeHolochainCall('events-goer-4000/event/get_entry', { entry_address: address }, (result) => {
+          console.log('retrieved product', result)
+          this.setState({ product: JSON.parse(result.Ok.App[1]) })
         })
       },
-
-      createProduct: options => {
+      getProductHistory: (address) => {
+        this.makeHolochainCall('events-goer-4000/event/get_entry_history', { entry_address: address }, (result) => {
+          console.log('retrieved history', result)
+          this.setState({ productHistory: result })
+        })
+      },
+      updateProduct: options => {
         const product = {
+          product_address: this.state.address,
           name: options.name,
           description: options.description,
           image_url: options.image_url,
           price: parseInt(options.price)
         }
-        this.makeHolochainCall('events-goer-4000/event/create_product', product, (result) => {
-          console.log('created product', result)
-          this.actions.getAllProducts()
+        this.makeHolochainCall('events-goer-4000/event/update_product', product, (result) => {
+          console.log('product updated', result)
         })
       }
 
@@ -51,9 +47,10 @@ class ProductScreen extends React.Component {
   }
 
   componentDidMount () {
-    const { getAllProducts } = this.actions
+    const values = queryString.parse(this.props.location.search)
+    this.setState({ address: values.address })
 
-    getAllProducts()
+    this.uiUpdate()
   }
 
   makeHolochainCall (callString, params, callback) {
@@ -62,50 +59,65 @@ class ProductScreen extends React.Component {
     })
   }
 
-  uiProductRow () {
+  uiUpdate () {
+    const { getProduct, getProductHistory } = this.actions
+    const { address } = this.state
 
+    if (address) {
+      getProduct(address)
+      getProductHistory(address)
+    }
+
+    setTimeout(() => this.uiUpdate(), 1000) // hack for now
   }
 
   uiProductList () {
-    const { products } = this.state
-    if (products.length > 0) {
-      return (
-        <table className='collapse ba br2 b--black-10 pv2 ph3'>
-          <tbody>
-            {
-              products.map((product) => {
-                return (
-                  <tr className='striped--light-gray' key={product.id}>
-                    <td className='pv2 ph3'><img src={product.image_url} className='br4 h3 w3 dib' style={{ objectFit: 'cover' }} /></td>
-                    <td className='pv2 ph3'><a href={`/product?id=${product.id}`}>{product.name}</a></td>
-                    <td className='pv2 ph3'>{product.description}</td>
-                    <td className='pv2 ph3'>{product.price}</td>
-                    <td className='pv2 ph3' width='24'><svg width='24' height='24'><path d='M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z' /><path d='M0 0h24v24H0z' fill='none' /></svg></td>
-                    <td className='pv2 ph3' width='24'><svg width='24' height='24'><path d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' /><path d='M0 0h24v24H0z' fill='none' /></svg></td>
-                  </tr>
-                )
-              })
-            }
-          </tbody>
-        </table>
-      )
-    } else {
-      return <div>No products yet.</div>
+    const { product } = this.state
+
+    return (
+      <div>
+        <h1 className='f1 lh-copy'>{product.name}</h1>
+
+        <img src={product.image_url} className='br4 h5 w5 dib' style={{ objectFit: 'cover' }} />
+
+        <p className='lh-copy pv1'>Description: {product.description}</p>
+
+        <p className='lh-copy pv1'>Price: {product.price}</p>
+      </div>
+    )
+  }
+
+  uiHistory () {
+    const { productHistory } = this.state
+
+    if (productHistory.Ok.items) {
+      return productHistory.Ok.items.map((item) => (
+        <pre key={item.meta.address}>{JSON.stringify(item, null, 2)}</pre>
+      ))
     }
+    return null
   }
 
   render () {
-    const { createProduct } = this.actions
+    const { updateProduct } = this.actions
+    const { product, productHistory } = this.state
     return (
       <main>
         <section>
-          <h1 className='f1 lh-copy'>Products</h1>
-          {this.uiProductList()}
-          <CreateProductForm submit={createProduct} />
+          {product ? this.uiProductList() : ''}
+
+          <h1 className='f3 lh-copy'>Edit product</h1>
+
+          <CreateProductForm submit={updateProduct} product={product} />
+
+          <h1 className='f3 lh-copy'>History</h1>
+
+          {productHistory ? this.uiHistory() : ''}
+
         </section>
       </main>
     )
   }
 }
 
-export default ProductScreen
+export default ProductListScreen

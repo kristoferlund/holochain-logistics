@@ -12,10 +12,15 @@ use hdk::{
 };
 
 use hdk::holochain_core_types::{
+    entry::Entry,
     hash::HashString,
     cas::content::Address,
     json::{JsonString},
     error::HolochainError,
+};
+
+use holochain_wasm_utils::api_serialization::{
+    get_entry::EntryHistory
 };
 
 mod anchor;
@@ -99,6 +104,11 @@ define_zome! {
 			outputs: |result: ZomeApiResult<Address>|,
 			handler: product::handlers::handle_create_product
 		}
+		update_product: {
+			inputs: |product_address: Address, name: String, description: String, image_url: String, price: u32|,			    
+			outputs: |result: ZomeApiResult<Address>|,
+			handler: product::handlers::handle_update_product
+		}
 		get_all_products: {
 				inputs: | |,
 				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<product::Product>>|,
@@ -123,8 +133,7 @@ define_zome! {
 				handler: inventory::handlers::handle_update_inventory_qty
 		}
 
-		
-		//
+    //
 		// ORDERS
 		//
 		create_order: {
@@ -137,7 +146,21 @@ define_zome! {
 				outputs: |result: ZomeApiResult<utils::GetLinksLoadResult<order::Order>>|,
 				handler: order::handlers::handle_get_all_orders
 		}
-	]
+
+    //
+		//  UTIL
+		//
+		get_entry_history: {
+				inputs: |entry_address: HashString|,			    
+				outputs: |result: ZomeApiResult<EntryHistory>|,
+				handler: utils::handle_get_entry_history
+        }
+		get_entry: {
+				inputs: |entry_address: HashString|,			    
+				outputs: |result: ZomeApiResult<Entry>|,
+				handler: utils::handle_get_entry
+        }
+]
 
 	 traits: {
 	        hc_public [
@@ -151,12 +174,15 @@ define_zome! {
 	        	post_message,
 	        	get_messages,
     			create_product,
+    			update_product,
     			get_all_products,
      			create_inventory,
-				get_all_inventory,
-				update_inventory_qty,
-				create_order,
-				get_all_orders
+  				update_inventory_qty,
+  				get_all_inventory,
+  				create_order,
+	   			get_all_orders,
+  				get_entry_history,
+	  			get_entry,
 	        ]
 	}
  }
