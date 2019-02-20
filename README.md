@@ -15,6 +15,7 @@ Building the DNA also requires that the holochain developer CLI, `hc`, is instal
 
 ```
 npm run hc:build
+npm run hc:start
 ```
 
 ### UI
