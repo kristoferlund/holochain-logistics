@@ -4,8 +4,12 @@ use hdk::{
     holochain_core_types::{
     	hash::HashString,
     	entry::{AppEntryValue, Entry},
+	    cas::content::Address,
     },
     error::{ZomeApiResult, ZomeApiError},
+};
+use holochain_wasm_utils::api_serialization::{
+    get_entry::EntryHistory
 };
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -75,4 +79,16 @@ pub fn link_entries_bidir<S: Into<String>>(a: &HashString, b: &HashString, tag_a
     hdk::link_entries(a, b, tag_a_b)?;
     hdk::link_entries(b, a, tag_b_a)?;
     Ok(())
+}
+
+pub fn handle_get_entry_history(entry_address: Address) -> ZomeApiResult<EntryHistory> {
+    let res = hdk::api::get_entry_history(&entry_address);
+	let entry_history = res.unwrap().unwrap();
+	Ok(entry_history)
+}
+
+pub fn handle_get_entry(entry_address: Address) -> ZomeApiResult<Entry> {
+    let res = hdk::api::get_entry(&entry_address);
+    let entry = res.unwrap().unwrap();
+	Ok(entry)
 }

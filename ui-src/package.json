@@ -5,6 +5,7 @@
     "@holochain/hc-redux-middleware": "^1.0.9",
     "@holochain/hc-web-client": "^0.1.0",
     "object-path-immutable": "^1.0.1",
+    "query-string": "^6.2.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-linkify": "^0.2.2",
