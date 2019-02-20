@@ -36,9 +36,9 @@ define_zome! {
 
 	entries: [
 		message::message_definition(),
-    	event::public_event_definition(),
-        member::profile_definition(),
-        anchor::anchor_definition(),
+    event::public_event_definition(),
+    member::profile_definition(),
+    anchor::anchor_definition(),
 		product::product_definition(),
 		inventory::inventory_definition(),
 		order::order_definition()
@@ -163,27 +163,27 @@ define_zome! {
 ]
 
 	 traits: {
-	        hc_public [
-	        	register,
-	        	create_event,
-	        	join_event,
-	        	get_all_public_events,
-	        	get_members,
-	        	get_member_profile,
-	        	get_my_member_profile,
-	        	post_message,
-	        	get_messages,
-    			create_product,
-    			update_product,
-    			get_all_products,
-     			create_inventory,
-  				update_inventory_qty,
-  				get_all_inventory,
-  				create_order,
-	   			get_all_orders,
-  				get_entry_history,
-	  			get_entry,
-	        ]
+		hc_public [
+			register,
+			create_event,
+			join_event,
+			get_all_public_events,
+			get_members,
+			get_member_profile,
+			get_my_member_profile,
+			post_message,
+			get_messages,
+			create_product,
+			update_product,
+			get_all_products,
+			create_inventory,
+			update_inventory_qty,
+			get_all_inventory,
+			create_order,
+			get_all_orders,
+			get_entry_history,
+			get_entry
+		]
 	}
  }
 
