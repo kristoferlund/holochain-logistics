@@ -6,9 +6,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Title } from './components/App'
 
+import './styles/tachyons.min.css'
+
 ReactDOM.render(
   <BrowserRouter>
-    <div>
+    <div className='w-100 sans-serif pv4 ph3 ph5-ns bg-white black-70'>
       <Route exact path='/' component={Title} />
       <Route path='/products' component={ProductScreen} />
       <Route path='/old' component={OldStartScreen} />

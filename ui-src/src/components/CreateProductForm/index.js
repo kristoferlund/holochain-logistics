@@ -26,13 +26,25 @@ export const CreateProductForm = ({ submit }) => {
         e.target[2].value = ''
         e.target[3].value = ''
       }}
-    > <label>Create A New Product </label>
+    >
 
-      <input placeholder='Name...' />
-      <input placeholder='Description...' />
-      <input placeholder='Image URL...' />
-      <input placeholder='Price...' />
-      <button type='submit'>Save</button>
+      <div className='measure'>
+        <h1 className='f3 lh-copy'>Create Product</h1>
+
+        <label htmlFor='name' className='f6 b db mb2'>Name</label>
+        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' />
+
+        <label htmlFor='name' className='f6 b db mb2'>Description</label>
+        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' />
+
+        <label htmlFor='name' className='f6 b db mb2'>Image URL</label>
+        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' />
+
+        <label htmlFor='name' className='f6 b db mb2'>Price</label>
+        <input className='input-reset ba b--black-20 pa2 mb2 db w-100' />
+
+        <button type='submit' className='button-reset f6 link dim br3 ph3 pv2 mb2 dib white bg-dark-green'>Save</button>
+      </div>
     </form>
   )
 }
