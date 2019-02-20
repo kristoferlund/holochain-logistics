@@ -1,0 +1,6 @@
+{
+    "javascript.validate.enable": false,
+    "standard.autoFixOnSave": true,
+    "editor.tabSize": 2,
+    "javascript.preferences.quoteStyle": "single"
+}
