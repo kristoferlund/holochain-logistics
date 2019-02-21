@@ -137,7 +137,7 @@ define_zome! {
 		// ORDERS
 		//
 		create_order: {
-				inputs: |supply_organisation: Address, recieving_organisation: Address, product_address: Address, order_quantity: u32, transport: String, comment: String, is_sent: bool, is_recieved: bool|,
+				inputs: |inventory_address: Address, supply_organisation: Address, recieving_organisation: Address, product_address: Address, order_quantity: u32, transport: String, comment: String, is_sent: bool, is_recieved: bool|,
 				outputs: |result: ZomeApiResult<Address>|,
 				handler: order::handlers::handle_create_order
         }

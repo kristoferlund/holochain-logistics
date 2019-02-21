@@ -4,6 +4,7 @@ use hdk::holochain_core_types::{
     entry::Entry,
     cas::content::Address,
     json::RawString,
+    error::error::HolochainError,
 };
 
 use crate::order::{
@@ -13,6 +14,7 @@ use crate::order::{
 use crate::utils;
 
 pub fn handle_create_order(
+    inventory_address: Address,
     supply_organisation: Address,
     recieving_organisation: Address,
     product_address: Address,
@@ -25,6 +27,13 @@ pub fn handle_create_order(
 
     let order = Order{supply_organisation, recieving_organisation, product_address, order_quantity, transport, comment, is_sent, is_recieved};
 
+    /* should retrieve and update the inventory information for the product & org combination that the
+    order is going to. 
+     
+    let old_inventory = hdk::get_entry(&inventory_address)?
+       .ok_or(HolochainError::ErrorGeneric("Entry not found".to_string()))?;
+    
+    */
     let entry = Entry::App(
         "order".into(),
         order.into()

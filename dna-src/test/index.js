@@ -145,7 +145,7 @@ scenario.runTape('Can update inventory item', async (t, {alice}) => {
 // need to create two different orgs, how? not using Agent_address?
 // need to start updating inventory quantity of same product + supply_org combination
 //
-scenario.runTape('Can create create an order', async (t, {alice}) => {
+scenario.runTape('Can create create an order and update invetory of ordered product', async (t, {alice}) => {
   const register_result = await alice.callSync('event', 'register', {name: 'Food hub', avatar_url: '', description: "we are just around the corner"})
   console.log(register_result.Ok)
   t.true(register_result.Ok.includes('alice'))
@@ -170,7 +170,12 @@ scenario.runTape('Can create create an order', async (t, {alice}) => {
   console.log(create_inventory2)
   t.deepEqual(create_inventory2.Ok.length, 46)
 
+  const created_inventory = await alice.callSync('event', 'get_all_inventory', {})
+  console.log('pre-order inventory: ', created_inventory)
+  t.deepEqual(created_inventory.Ok.length, 2)
+
   const create_order = await alice.callSync('event', 'create_order', {
+    inventory_address: create_inventory.Ok,
     supply_organisation: register_result.Ok,
     recieving_organisation: register_result2.Ok,
     product_address: create_product.Ok,
@@ -183,6 +188,7 @@ scenario.runTape('Can create create an order', async (t, {alice}) => {
   t.deepEqual(create_order.Ok.length, 46)
 
   const create_order2 = await alice.callSync('event', 'create_order', {
+    inventory_address: create_inventory2.Ok,
     supply_organisation: register_result.Ok,
     recieving_organisation: register_result2.Ok,
     product_address: create_product2.Ok,
@@ -195,8 +201,14 @@ scenario.runTape('Can create create an order', async (t, {alice}) => {
   t.deepEqual(create_order2.Ok.length, 46)
 
   const get_result = await alice.callSync('event', 'get_all_orders', {})
-  console.log('all inventory: ', get_result)
+  console.log('all orders: ', get_result)
   t.deepEqual(get_result.Ok.length, 2)
+
+  //should instead check stocked_quantity_after = stock_quantity_before - order_quantity
+  //test now relies on comparing "pre- and post-order inventory" printout in logs.
+  const updated_inventory = await alice.callSync('event', 'get_all_inventory', {})
+  console.log('post-order inventory: ', updated_inventory)
+  t.deepEqual(updated_inventory.Ok.length, 2)
 })
 
 
