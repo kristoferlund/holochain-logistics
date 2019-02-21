@@ -1,6 +1,7 @@
-import React from 'react'
-import { connect } from '@holochain/hc-web-client'
 import { CreateProductForm } from '../CreateProductForm'
+import React from 'react'
+
+import { connect } from '@holochain/hc-web-client'
 import queryString from 'query-string'
 
 // --------------------------------------
@@ -20,13 +21,11 @@ class ProductListScreen extends React.Component {
     this.actions = {
       getProduct: (address) => {
         this.makeHolochainCall('events-goer-4000/event/get_entry', { entry_address: address }, (result) => {
-          console.log('retrieved product', result)
           this.setState({ product: JSON.parse(result.Ok.App[1]) })
         })
       },
       getProductHistory: (address) => {
         this.makeHolochainCall('events-goer-4000/event/get_entry_history', { entry_address: address }, (result) => {
-          console.log('retrieved history', result)
           this.setState({ productHistory: result })
         })
       },
@@ -92,7 +91,7 @@ class ProductListScreen extends React.Component {
 
     if (productHistory.Ok.items) {
       return productHistory.Ok.items.map((item) => (
-        <pre key={item.meta.address}>{JSON.stringify(item, null, 2)}</pre>
+        <pre key={item.meta.address} className='pa3 bg-light-gray f7 pre'>{JSON.stringify(item, null, 2)}</pre>
       ))
     }
     return null
@@ -112,7 +111,7 @@ class ProductListScreen extends React.Component {
 
           <h1 className='f3 lh-copy'>History</h1>
 
-          {productHistory ? this.uiHistory() : ''}
+          {productHistory ? <div className='measure'>{this.uiHistory()}</div> : ''}
 
         </section>
       </main>
