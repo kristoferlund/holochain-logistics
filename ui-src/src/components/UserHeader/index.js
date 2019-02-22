@@ -2,7 +2,6 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 
 import { connect } from '@holochain/hc-web-client'
-import style from './index.module.css'
 
 const placeholder =
   'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
@@ -35,6 +34,20 @@ class UserHeader extends React.Component {
     })
   }
 
+  uiRedirectToRegister () {
+    const {
+      user,
+      connected
+    } = this.state
+
+    const { pathname } = window.location
+
+    if (connected && !user.name && pathname !== '/register') {
+      return <Redirect to='/register' />
+    }
+    return null
+  }
+
   render () {
     const {
       user,
@@ -42,14 +55,18 @@ class UserHeader extends React.Component {
     } = this.state
 
     return (
-      <header className={style.component}>
-        <img src={user.avatarURL || placeholder} alt='' />
-        <div>
-          <h3>{user.name}</h3>
-          <h5>{user.id && `@${user.id.substring(0, 15)}`}</h5>
+      <header className='flex flex-column black-70 ph5-ns mt3'>
+        {this.uiRedirectToRegister()}
+        <div className='flex mv2'>
+          <img src={user.avatarURL || placeholder} alt='' className='br4 h3 w3 dib bg-light-gray' style={{ objectFit: 'cover' }} />
+          <div className='ma2'>
+            <div class='f4 lh-copy'>{user.name ? user.name : 'Username'}</div>
+            <div class='f7 lh-copy'>{user.id ? user.id && `@${user.id.substring(0, 15)}` : 'User id'}</div>
+          </div>
         </div>
-
-        { connected ? user.name ? '' : <Redirect to='/register' /> : ''}
+        <div className='f6 measure lh-copy'>
+          { connected ? '✅ Holochain: Connected' : '❌ Holochain: Not connected' }
+        </div>
       </header>
     )
   }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 
 import { connect } from '@holochain/hc-web-client'
 
@@ -45,8 +44,8 @@ class RegisterScreen extends React.Component {
 
     return (
       <div className='measure'>
-        <p>
-        It looks like this is the first time using Events Goer 4000 with this agent. Register a handle and avatar for this agent ID.
+        <p className='f5 f4-ns lh-copy'>
+        It looks like this is the first time using Hologistics with this agent. Register a handle and avatar for this agent ID.
         </p>
         <form
           onSubmit={e => {
@@ -76,10 +75,9 @@ class RegisterScreen extends React.Component {
   }
 
   render () {
-    const { connected, userHasProfile } = this.state
     return (
       <div>
-        { connected ? userHasProfile ? <Redirect to='/' /> : this.uiRegisterScreen() : ''}
+        { this.uiRegisterScreen() }
       </div>
     )
   }

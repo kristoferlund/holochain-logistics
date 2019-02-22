@@ -52,6 +52,10 @@ class ProductListScreen extends React.Component {
     this.uiUpdate()
   }
 
+  componentWillUnmount () {
+    clearTimeout(this.timeout)
+  }
+
   makeHolochainCall (callString, params, callback) {
     this.state.holochainConnection.then(({ call }) => {
       call(callString)(params).then((result) => callback(JSON.parse(result)))
@@ -67,7 +71,7 @@ class ProductListScreen extends React.Component {
       getProductHistory(address)
     }
 
-    setTimeout(() => this.uiUpdate(), 1000) // hack for now
+    this.timeout = setTimeout(() => this.uiUpdate(), 1000) // hack for now
   }
 
   uiProductList () {
