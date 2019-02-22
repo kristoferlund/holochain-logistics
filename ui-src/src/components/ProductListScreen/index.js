@@ -18,7 +18,6 @@ class ProductListScreen extends React.Component {
 
       getAllProducts: () => {
         this.makeHolochainCall('events-goer-4000/event/get_all_products', {}, (result) => {
-          console.log('retrieved all products', result)
           const products = result.Ok.map(({ address, entry }) => {
             return {
               id: address,
@@ -42,7 +41,6 @@ class ProductListScreen extends React.Component {
           price: parseInt(options.price)
         }
         this.makeHolochainCall('events-goer-4000/event/create_product', product, (result) => {
-          console.log('created product', result)
           this.actions.getAllProducts()
         })
       }
@@ -52,6 +50,10 @@ class ProductListScreen extends React.Component {
 
   componentDidMount () {
     this.uiUpdate()
+  }
+
+  componentWillUnmount () {
+    clearTimeout(this.timeout)
   }
 
   makeHolochainCall (callString, params, callback) {
@@ -65,7 +67,7 @@ class ProductListScreen extends React.Component {
 
     getAllProducts()
 
-    setTimeout(() => this.uiUpdate(), 1000) // hack for now
+    this.timeout = setTimeout(() => this.uiUpdate(), 1000) // hack for now
   }
 
   uiProductList () {
