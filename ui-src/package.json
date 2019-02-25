@@ -4,26 +4,29 @@
   "dependencies": {
     "@holochain/hc-redux-middleware": "^1.0.9",
     "@holochain/hc-web-client": "^0.1.0",
-    "object-path-immutable": "^1.0.1",
+    "classnames": "^2.2.6",
+    "lodash": "^4.17.11",
+    "object-path-immutable": "^3.0.0",
     "query-string": "^6.2.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "react-linkify": "^0.2.2",
-    "react-redux": "5.0.5",
+    "react-redux": "6.0.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "next",
-    "redux": "3.6.0",
+    "react-scripts": "2.1.5",
+    "reactn": "^1.0.0",
+    "redux": "4.0.1",
+    "use-force-update": "^1.0.2",
     "vuid": "^1.0.0"
   },
   "devDependencies": {
-    "eslint-plugin-react": "^7.11.1"
+    "eslint-plugin-react": "^7.12.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && mv ./build ../ui",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "lint": "standard"
+    "eject": "react-scripts eject"
   },
   "browserslist": [
     ">0.2%",
