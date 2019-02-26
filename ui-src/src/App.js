@@ -20,10 +20,17 @@ export default class App extends React.Component {
     if (profile) {
       this.setGlobal({
         user: {
+          registered: true,
           id: profile.address,
           name: profile.name,
           avatarURL: profile.avatar_url,
           description: profile.description
+        }
+      })
+    } else {
+      this.setGlobal({
+        user: {
+          registered: false
         }
       })
     }
