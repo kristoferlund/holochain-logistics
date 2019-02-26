@@ -1,3 +1,5 @@
+import { Button, Input, Label } from '../../styles/styledHtml'
+
 import React from 'react'
 
 export const ProductCreateForm = ({ submit, product }) => {
@@ -36,50 +38,33 @@ export const ProductCreateForm = ({ submit, product }) => {
           value={product && product.address ? product.address : ''}
         />
 
-        <label htmlFor="name" className="f6 b db mb2">
-          Name
-        </label>
-        <input
-          className="input-reset ba b--black-20 pa2 mb2 db w-100"
+        <Label.std htmlFor="name">Name</Label.std>
+        <Input.std
           defaultValue={product && product.name ? product.name : ''}
           id="name"
         />
 
-        <label htmlFor="description" className="f6 b db mb2">
-          Description
-        </label>
-        <input
-          className="input-reset ba b--black-20 pa2 mb2 db w-100"
+        <Label.std htmlFor="description">Description</Label.std>
+        <Input.std
           defaultValue={
             product && product.description ? product.description : ''
           }
           id="description"
         />
 
-        <label htmlFor="image_url" className="f6 b db mb2">
-          Image URL
-        </label>
-        <input
-          className="input-reset ba b--black-20 pa2 mb2 db w-100"
+        <Label.std htmlFor="image_url">Image URL</Label.std>
+        <Input.std
           defaultValue={product && product.image_url ? product.image_url : ''}
           id="image_url"
         />
 
-        <label htmlFor="price" className="f6 b db mb2">
-          Price
-        </label>
-        <input
-          className="input-reset ba b--black-20 pa2 mb2 db w-100"
+        <Label.std htmlFor="price">Price</Label.std>
+        <Input.std
           defaultValue={product && product.price ? product.price : ''}
           id="price"
         />
 
-        <button
-          type="submit"
-          className="button-reset f6 link dim br3 ph3 pv2 mb2 dib white bg-dark-green"
-        >
-          Save
-        </button>
+        <Button.std type="submit">Save</Button.std>
       </div>
     </form>
   )

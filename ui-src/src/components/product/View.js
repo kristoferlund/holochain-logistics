@@ -1,5 +1,7 @@
 import React, { useGlobal } from 'reactn'
 
+import { P } from '../../styles/styledHtml'
+
 export const ProductView = () => {
   const [product] = useGlobal('product')
 
@@ -12,9 +14,9 @@ export const ProductView = () => {
         alt="product"
       />
 
-      <p className="lh-copy pv1">Description: {product.description}</p>
+      <P.std>Description: {product.description}</P.std>
 
-      <p className="lh-copy pv1">Price: {product.price}</p>
+      <P.std>Price: {product.price}</P.std>
     </>
   )
 }

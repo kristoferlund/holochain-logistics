@@ -14,7 +14,7 @@ export const A = {
 
 export const RouterLink = {
   std: ({ to, className, children }) => (
-    <Link to={to} className={classNames(className, 'black-70 link dim')}>
+    <Link to={to} className={classNames(className, 'blue link dim')}>
       {children}
     </Link>
   )
@@ -49,6 +49,18 @@ export const Table = {
 }
 
 export const Button = {
+  std: ({ className, onClick, type, children }) => (
+    <button
+      className={classNames(
+        className,
+        'button-reset bg-black-70 ba dib pa2 ph4 br3 mt2 white dim pointer bw0 mb2 f5 f4-ns'
+      )}
+      onClick={onClick}
+      type={type}
+    >
+      {children}
+    </button>
+  ),
   icon: ({ className, onClick, children }) => (
     <button
       className={classNames(
@@ -59,5 +71,49 @@ export const Button = {
     >
       {children}
     </button>
+  )
+}
+
+export const Input = {
+  std: ({ className, defaultValue, id }) => (
+    <input
+      className={classNames(
+        className,
+        'input-reset ba b--black-20 pa2 mb2 db w-100 f5 f4-ns black-70'
+      )}
+      defaultValue={defaultValue}
+      id={id}
+    />
+  )
+}
+
+export const Select = {
+  std: ({ className, id, children }) => (
+    <select
+      className={classNames(
+        className,
+        'ba b--black-20 pa2 mb2 db f5 f4-ns black-70'
+      )}
+      id={id}
+    >
+      {children}
+    </select>
+  )
+}
+
+export const Label = {
+  std: ({ className, htmlFor, children }) => (
+    <label
+      className={classNames(className, 'f6 f5-ns b db mb2')}
+      htmlFor={htmlFor}
+    >
+      {children}
+    </label>
+  )
+}
+
+export const P = {
+  std: ({ className, children }) => (
+    <p className={classNames(className, 'f5 f4-ns lh-copy')}>{children}</p>
   )
 }

@@ -3,7 +3,7 @@ import './styles/tachyons.min.css'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import React from 'reactn'
-import RegisterScreen from './components/RegisterScreen'
+import ScreensRegister from './screens/Register'
 import ScreensIndex from './screens/Index'
 import ScreensInventory from './screens/Inventory'
 import ScreensProduct from './screens/Product'
@@ -47,7 +47,7 @@ export default class App extends React.Component {
               <Route exact path="/" component={ScreensIndex} />
               <Route path="/products" component={ScreensProductList} />
               <Route path="/product" component={ScreensProduct} />
-              <Route path="/register" component={RegisterScreen} />
+              <Route path="/register" component={ScreensRegister} />
               <Route path="/inventory" component={ScreensInventory} />
             </Switch>
           </div>

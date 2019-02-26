@@ -1,5 +1,7 @@
 import React, { useGlobal } from 'reactn'
 
+import { Button, Input, Label, Select } from '../../styles/styledHtml'
+
 export const InventoryCreateForm = ({ submit, inv: inventory }) => {
   const [products] = useGlobal('products')
   return (
@@ -23,21 +25,19 @@ export const InventoryCreateForm = ({ submit, inv: inventory }) => {
       }}
     >
       <div className="measure">
-        <label htmlFor="product_address" className="f6 b db mb2">
-          Product
-        </label>
-        <select id="product_address">
+        <Label.std htmlFor="product_address">Product</Label.std>
+        <Select.std id="product_address">
           {products.map(product => (
             <option key={product.id} value={product.id}>
               {product.name}
             </option>
           ))}
-        </select>
+        </Select.std>
 
-        <label htmlFor="stocked_units" className="f6 b db mb2">
+        <Label.std htmlFor="stocked_units" className="f6 b db mb2">
           Quantity
-        </label>
-        <input
+        </Label.std>
+        <Input.std
           className="input-reset ba b--black-20 pa2 mb2 db w-100"
           defaultValue={
             inventory && inventory.stocked_units ? inventory.stocked_units : ''
@@ -45,12 +45,7 @@ export const InventoryCreateForm = ({ submit, inv: inventory }) => {
           id="stocked_units"
         />
 
-        <button
-          type="submit"
-          className="button-reset f6 link dim br3 ph3 pv2 mb2 dib white bg-dark-green"
-        >
-          Save
-        </button>
+        <Button.std type="submit">Save</Button.std>
       </div>
     </form>
   )

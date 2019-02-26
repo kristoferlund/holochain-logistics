@@ -1,25 +1,28 @@
 import { Link } from 'react-router-dom'
 import React from 'react'
 
+import { H, P, RouterLink } from '../styles/styledHtml'
+
 const ScreensIndex = () => {
   return (
     <div className="title">
-      <h1 className="f1 lh-copy">Hologistics 4001.</h1>
+      <H.h1>Hologistics.</H.h1>
 
-      <p className="f5 f4-ns measure lh-copy">
-        <Link to="/products">Products</Link> – Manage the global product list,
-        common for all user profiles{' '}
-      </p>
+      <P.std>
+        <RouterLink.std to="/products">Products</RouterLink.std> – Manage the
+        global product list, common for all user profiles.
+      </P.std>
 
-      <p className="f5 f4-ns measure lh-copy">
-        <Link to="/inventory">Inventory</Link> – Manage the inventory linked to
-        your profile <b>[not ready]</b>
-      </p>
+      <P.std>
+        <RouterLink.std to="/inventory">Inventory</RouterLink.std> – Manage the
+        inventory linked to your profile.
+      </P.std>
 
-      <p className="f5 f4-ns measure lh-copy">
-        <Link to="/orders">Orders</Link> – Browse other users inventory, place
-        orders, sign to send and receive <b>[not ready]</b>
-      </p>
+      <P.std>
+        <RouterLink.std to="/orders">Orders</RouterLink.std> – Browse other
+        users inventory, place orders, sign to send and receive.
+        <b>[NOT IMPLEMENTED YET]</b>
+      </P.std>
     </div>
   )
 }

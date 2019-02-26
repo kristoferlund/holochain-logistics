@@ -2,6 +2,8 @@ import { ProductCreateForm } from '../components/product/CreateForm'
 import { ProductList } from '../components/product/List'
 import React from 'reactn'
 
+import { Button, H } from '../styles/styledHtml'
+
 import { hcProductCreate } from '../holochain/product'
 import { loadProducts } from '../state/product'
 
@@ -27,12 +29,9 @@ class ScreensProductList extends React.Component {
     return (
       <main>
         <section>
-          <h1 className="f1 lh-copy">Products</h1>
+          <H.h1>Products</H.h1>
 
-          <button
-            onClick={loadProducts}
-            className="button-reset bg-black-70 ba dib ph2 pv1 br3 mt2 white dim pointer bw0 mb2"
-          >
+          <Button.icon onClick={loadProducts}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30"
@@ -45,11 +44,11 @@ class ScreensProductList extends React.Component {
                 style={{ fill: '#FFF' }}
               />
             </svg>
-          </button>
+          </Button.icon>
 
           {products.length > 0 ? <ProductList /> : <div>Empty space.</div>}
 
-          <h1 className="f3 lh-copy">Create product</h1>
+          <H.h3>Create product</H.h3>
 
           <ProductCreateForm
             submit={options => {

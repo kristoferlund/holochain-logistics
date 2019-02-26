@@ -1,17 +1,16 @@
 import React from 'reactn'
-import { Redirect } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 const placeholder =
   'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
 class UserHeader extends React.Component {
   uiRedirectToRegister() {
-    const { user, connected } = this.global
+    const { user, hc } = this.global
 
     const { pathname } = window.location
 
-    if (connected && !user.name && pathname !== '/register') {
+    if (hc.connected && !user.name && pathname !== '/register') {
       return <Redirect to="/register" />
     }
     return null

@@ -1,8 +1,6 @@
 import React, { useGlobal } from 'reactn'
 import { RouterLink, Table } from '../../styles/styledHtml'
 
-import { Link } from 'react-router-dom'
-
 const ProductListItem = props => {
   return (
     <Table.tr>
