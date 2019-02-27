@@ -10,7 +10,7 @@ class UserHeader extends React.Component {
 
     const { pathname } = window.location
 
-    if (hc.connected && !user.name && pathname !== '/register') {
+    if (hc.connected && user.registered === false && pathname !== '/register') {
       return <Redirect to="/register" />
     }
     return null
