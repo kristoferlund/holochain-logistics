@@ -2,6 +2,8 @@
 
 **WORK IN PROGRESS**
 
+![screendump](https://user-images.githubusercontent.com/9698363/54288144-3d313200-45a7-11e9-84e2-71e6cee007ef.png)
+
 ## Introduction
 
 This repo has been created during the Feb 2019 Holochain Devcamp and is based on the [Playground](https://github.com/holochain/dev-camp-playground) repo which is why the zome is named Event.
