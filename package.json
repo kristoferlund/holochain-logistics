@@ -4,8 +4,16 @@
   "description": "A event demo for holochain",
   "main": "index.js",
   "scripts": {
-    "hc:build": "mkdir -p dna && cd dna-src && hc package --strip-meta -o ../dna/logistics.hcpkg",
-    "hc:start": "holochain -c ./conductor-config.toml"
+    "hc:build": "mkdir -p dna && cd dna-src && hc package --strip-meta -o ../dna/logistics.dna.json",
+    "clean:all": "rm -rf ui ui-agent1 ui-agent2 ui-src/build",
+    "ui:build-agent1": "cd ui-src && REACT_APP_NODE_PORT=3000 REACT_APP_DNA_INSTANCE=agent1_dna_instance npm run build && cd ..",
+    "ui:build-agent2": "cd ui-src && REACT_APP_NODE_PORT=3001 REACT_APP_DNA_INSTANCE=agent2_dna_instance npm run build && cd ..",
+    "build:agent1": "rm -rf ui-agent1 && npm run ui:build-agent1 && mv ./ui-src/build ./ui-agent1",
+    "build:agent2": "rm -rf ui-agent2 && npm run ui:build-agent2 && mv ./ui-src/build ./ui-agent2",
+    "start:agent1": "npm run build:agent1 &&  holochain -c ./agent1-conductor-config.toml",
+    "start:agent2": "npm run build:agent2 &&  holochain -c ./agent2-conductor-config.toml",
+    "start:dev-hc": "holochain -c ./conductor-config.toml",
+    "start:dev-ui": "cd ui-src && PORT=8800 REACT_APP_NODE_PORT=3000 npm run start"
   },
   "author": "",
   "license": "GPL-3"
