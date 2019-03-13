@@ -67,8 +67,6 @@ hc test
 - [Holochain](https://developer.holochain.org/)
 - [React](https://reactjs.org/)
 
-A huge acknowledgement to Pusher for providing an open source React event UI (https://github.com/pusher/react-slack-clone)
-
 ## Authors
 
 - **Kristofer Lund** - [kristoferlund](https://github.com/kristoferlund)
