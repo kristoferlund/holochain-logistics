@@ -21,6 +21,10 @@ class UserHeader extends React.Component {
 
     return (
       <header className="flex flex-column black-70 ph5-ns mt3">
+        <div className="f6 measure lh-copy mv2">
+          👾 UI doesn't yet auto refresh. Use reload button or reload full page
+          as needed.
+        </div>
         {this.uiRedirectToRegister()}
         <div className="flex mv2">
           <img
@@ -34,7 +38,7 @@ class UserHeader extends React.Component {
               {user.name ? user.name : 'Username'}
             </div>
             <div className="f7 lh-copy">
-              {user.id ? user.id && `@${user.id.substring(0, 15)}` : 'User id'}
+              {user.id ? user.id && `@${user.id.substring(0, 15)}…` : 'User id'}
             </div>
           </div>
         </div>

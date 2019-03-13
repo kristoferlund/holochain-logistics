@@ -1,0 +1,61 @@
+
+# -----------  Agents  -----------
+
+# Key password: qwe123
+[[agents]]
+id = "test_agent2"
+name = "HoloTester2"
+public_address = "HcSCIjOQSm6hy9p6z7949784jer66d338vN3tz8gGSqgk4ra9uuFBaWRGtm859z"
+key_file = "./agent2-key.txt"
+
+# -----------  DNA  -----------
+
+[[dnas]]
+id = "event_dna"
+file = "dna/logistics.dna.json"
+hash = "Qm328wyq38924y"
+
+[[instances]]
+id = "logistics_test_agent2"
+dna = "event_dna"
+agent = "test_agent2"
+
+[instances.logger]
+type = "simple"
+file = "app_spec.log"
+
+[instances.storage]
+type = "file"
+path = "tmp-storage-agent2"
+
+[[interfaces]]
+id = "websocket_interface"
+
+[interfaces.driver]
+type = "websocket"
+port = 3001
+
+[[interfaces.instances]]
+id = "logistics_test_agent2"
+
+# -----------  UI  -----------
+
+[[ui_bundles]]
+id = "main"
+root_dir = "./ui-agent2"
+hash = "QmKJHYjk0"
+
+[[ui_interfaces]]
+id = "ui-interface"
+bundle = "main"
+port = 8801
+dna_interface = "websocket_interface"
+
+# -----------  Networking  -----------
+[network]
+n3h_path = "/Users/kristoferlund/hc/n3h-0.0.6-alpha1"
+n3h_persistence_path = "/tmp"
+bootstrap_nodes = ["wss://192.168.1.4:59904/?a=hkYDVi5pW-w0yCOduDPt-pcDcKlaQnF2cg2MH2I10YVkZqtQtd_e8NDCWnvRdm1Gj0t_GO5cQ5p2tmjnELQ-NWpRJPHMkuyw"]
+
+# ⚠️ Set absolute path to n3h before starting first time.
+# ⚠️ Configure bootstrap_nodes before starting _every time_, see README dor details.

@@ -1,57 +1,27 @@
-import React from 'react'
+import { Button, Input, Label, P } from '../styles/styledHtml'
 
-import { connect } from '@holochain/hc-web-client'
+import React from 'reactn'
+import { Redirect } from 'react-router-dom'
 
-import { Input, Label, P, Button } from '../styles/styledHtml'
+import { hcRegisterUser } from '../holochain/profile'
 
 class ScreensRegister extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      holochainConnection: connect('ws://localhost:3400'),
-      connected: false,
-      userHasProfile: false
+  uiRedirectToStart() {
+    const { user, hc } = this.global
+
+    if (hc.connected && user.registered === true) {
+      return <Redirect to="/" />
     }
-
-    this.actions = {
-      registerUser: ({ name, avatarURL, description }) => {
-        this.makeHolochainCall(
-          'events-goer-4000/event/register',
-          { name, avatar_url: avatarURL, description },
-          () => {
-            this.setState({ userHasProfile: true })
-          }
-        )
-      }
-    }
-  }
-
-  componentDidMount() {
-    this.state.holochainConnection.then(({ call }) => {
-      call('events-goer-4000/event/get_my_member_profile')({}).then(result => {
-        const profile = JSON.parse(result).Ok
-        if (profile) {
-          this.setState({ userHasProfile: true })
-        }
-        this.setState({ connected: true })
-      })
-    })
-  }
-
-  makeHolochainCall(callString, params, callback) {
-    this.state.holochainConnection.then(({ call }) => {
-      call(callString)(params).then(result => callback(JSON.parse(result)))
-    })
+    return null
   }
 
   uiRegisterScreen() {
-    const { registerUser } = this.actions
-
     return (
       <div className="measure">
+        {this.uiRedirectToStart()}
         <P.std>
           It looks like this is the first time using Hologistics with this
-          agent. Register a handle and avatar for this agent ID.
+          agent. Register a usename and avatar for this agent ID.
         </P.std>
         <form
           onSubmit={e => {
@@ -64,14 +34,14 @@ class ScreensRegister extends React.Component {
             if (name.length === 0) {
               return
             }
-            registerUser({
+            hcRegisterUser({
               name,
               avatarURL,
               description
             })
           }}
         >
-          <Label.std htmlFor="handle">Input @handle</Label.std>
+          <Label.std htmlFor="handle">Username</Label.std>
           <Input.std id="handle" />
 
           <Label.std htmlFor="avatar">Avatar image url</Label.std>

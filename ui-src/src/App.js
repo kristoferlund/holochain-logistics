@@ -10,13 +10,13 @@ import ScreensProduct from './screens/Product'
 import ScreensProductList from './screens/ProductList'
 import UserHeader from './components/UserHeader'
 
-import { getUserProfile } from './holochain/profile'
+import { hcGetUserProfile } from './holochain/profile'
 import { hcConnect } from './holochain'
 
 export default class App extends React.Component {
   async startupHolochain() {
     await hcConnect()
-    const profile = await getUserProfile()
+    const profile = await hcGetUserProfile()
     if (profile) {
       this.setGlobal({
         user: {

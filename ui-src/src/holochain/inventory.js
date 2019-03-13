@@ -1,7 +1,6 @@
 import { ZOME_NAME, hcInstanceCall } from '.'
-import { setGlobal } from 'reactn'
 
-export async function hcInventoryGetAll () {
+export async function hcInventoryGetAll() {
   try {
     const result = await hcInstanceCall(`${ZOME_NAME}/get_all_inventory`, {})
 
@@ -22,6 +21,6 @@ export async function hcInventoryGetAll () {
   return {}
 }
 
-export async function hcInventoryCreate (item) {
+export async function hcInventoryCreate(item) {
   return hcInstanceCall(`${ZOME_NAME}/create_inventory`, item)
 }
