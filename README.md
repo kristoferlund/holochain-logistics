@@ -27,33 +27,33 @@ There most functionality for the most basic version of the demo is in place (not
 
 ### Multi agent
 
-Install holochain networking component n3h, version 'n3h-0.0.6-alpha1':
+Install holochain networking component n3h, version ´n3h-0.0.6-alpha1´:
 
 - Follow instructions at [https://github.com/holochain/n3h](https://github.com/holochain/n3h).
-- Set absoulute path to n3h ('n3h_path') in both conductor config files - 'agent1-conductor-config.toml' and 'agent2-conductor-config.toml'.
+- Set absoulute path to n3h (´n3h_path´) in both conductor config files - ´agent1-conductor-config.toml´ and ´agent2-conductor-config.toml´.
 
-Install ui dependencies 'cd ui-src && yarn install && cd ..'
+Install ui dependencies ´cd ui-src && yarn install && cd ..´
 
-Run Agent 1 'start:agent1' (password: qwe123)
+Run Agent 1 ´start:agent1´ (password: qwe123)
 
 Open it on http://localhost:8800
 
 Setup second node to connect to first node:
 
-- Copy URI from node 1 CLI output, line starting with starting with: '(@hackmode@) [i] p2p bound'
-- URI has format 'wss://192.168.1.4:52692/?a=hkao8rlz…'
-- Edit 'agent2-conductor-config.toml', set 'bootstrap_nodes' to copied URI.
-- 'bootstrap_nodes' should look like this '["wss://192.168.1.4:59769/?a=hkb1Z08I…"]'
+- Copy URI from node 1 CLI output, line starting with starting with: ´(@hackmode@) [i] p2p bound´
+- URI has format ´wss://192.168.1.4:52692/?a=hkao8rlz…´
+- Edit ´agent2-conductor-config.toml´, set ´bootstrap_nodes´ to copied URI.
+- ´bootstrap_nodes´ should look like this ´["wss://192.168.1.4:59769/?a=hkb1Z08I…"]´
 
-Run Agent 2 'start:agent2' (password: qwe123)
+Run Agent 2 ´start:agent2´ (password: qwe123)
 
 Open it on http://localhost:8801
 
 ### Development
 
-CLI1: 'yarn start:dev-hc'
+CLI1: ´yarn start:dev-hc´
 
-CLI2: 'yarn start:dev-ui'
+CLI2: ´yarn start:dev-ui´
 
 ### Test
 
