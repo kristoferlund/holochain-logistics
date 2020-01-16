@@ -1,6 +1,6 @@
 # Logistics
 
-**WORK IN PROGRESS**
+**🤖 This repo is not updated to support holochain beyond version v0.0.4-alpha**
 
 ![screendump](https://user-images.githubusercontent.com/9698363/54288144-3d313200-45a7-11e9-84e2-71e6cee007ef.png)
 
