@@ -4,7 +4,7 @@
   "dependencies": {
     "@holochain/hc-web-client": "^0.1.2",
     "classnames": "^2.2.6",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "query-string": "^6.2.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
